@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill_Map - Skill Mapping & Gap Analysis Platform</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4 text-primary d-flex align-items-center" href="#">
+        <i class="bi bi-diagram-3-fill me-2 text-primary"></i>Skill_Map
+      </a>
+      <div class="d-flex gap-2">
+        <a href="/login.html" class="btn btn-outline-light rounded-pill px-4">Sign In</a>
+        <a href="/register.html" class="btn btn-primary rounded-pill px-4">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5 justify-content-center">
+      <div class="col-lg-10">
+        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-3">Enterprise AI Skill Intelligence Platform</span>
+        <h1 class="display-4 fw-extrabold text-dark mb-4">Master Enterprise Competency & Bridge Skill Gaps</h1>
+        <p class="lead text-muted mb-5">Accelerate career growth, evaluate corporate talent matrices, map required vs actual skills, and deploy automated AI learning paths across universities & global enterprise organizations.</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="/login.html" class="btn btn-primary btn-lg px-5 rounded-pill shadow-lg">Access Platform Demo <i class="bi bi-arrow-right ms-2"></i></a>
+          <a href="#demo-logins" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">View Test Credentials</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Logins Container -->
+  <section id="demo-logins" class="py-5 bg-white border-top border-bottom">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Default Test Credentials</h2>
+        <p class="text-muted">Click any role below to pre-fill login credentials automatically:</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4 col-lg-2.4">
+          <div class="card card-custom text-center p-3 h-100 border-primary">
+            <i class="bi bi-shield-lock-fill fs-1 text-primary mb-2"></i>
+            <h6 class="fw-bold">Admin</h6>
+            <small class="text-muted d-block">admin@skillmap.com</small>
+            <small class="text-muted d-block mb-3">admin123</small>
+            <a href="/login.html?role=admin" class="btn btn-sm btn-primary w-100 rounded-pill">Login as Admin</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2.4">
+          <div class="card card-custom text-center p-3 h-100 border-info">
+            <i class="bi bi-journal-check fs-1 text-info mb-2"></i>
+            <h6 class="fw-bold">Faculty</h6>
+            <small class="text-muted d-block">faculty@skillmap.com</small>
+            <small class="text-muted d-block mb-3">faculty123</small>
+            <a href="/login.html?role=faculty" class="btn btn-sm btn-info text-white w-100 rounded-pill">Login as Faculty</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2.4">
+          <div class="card card-custom text-center p-3 h-100 border-success">
+            <i class="bi bi-person-badge-fill fs-1 text-success mb-2"></i>
+            <h6 class="fw-bold">Student</h6>
+            <small class="text-muted d-block">student@skillmap.com</small>
+            <small class="text-muted d-block mb-3">student123</small>
+            <a href="/login.html?role=student" class="btn btn-sm btn-success w-100 rounded-pill">Login as Student</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2.4">
+          <div class="card card-custom text-center p-3 h-100 border-warning">
+            <i class="bi bi-briefcase-fill fs-1 text-warning mb-2"></i>
+            <h6 class="fw-bold">HR Manager</h6>
+            <small class="text-muted d-block">hr@skillmap.com</small>
+            <small class="text-muted d-block mb-3">hr123</small>
+            <a href="/login.html?role=hr" class="btn btn-sm btn-warning text-white w-100 rounded-pill">Login as HR</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2.4">
+          <div class="card card-custom text-center p-3 h-100 border-secondary">
+            <i class="bi bi-gear-wide-connected fs-1 text-secondary mb-2"></i>
+            <h6 class="fw-bold">Training Manager</h6>
+            <small class="text-muted d-block">training@skillmap.com</small>
+            <small class="text-muted d-block mb-3">training123</small>
+            <a href="/login.html?role=training" class="btn btn-sm btn-secondary w-100 rounded-pill">Login as Training Lead</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid -->
+  <section class="py-5 container">
+    <div class="row g-4 py-4">
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="bi bi-cpu fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold">Skill Mapping Engine</h5>
+          <p class="text-muted">Map users and teams to technical and soft competencies with 4-tier proficiency ratings (Beginner, Intermediate, Advanced, Expert).</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="bi bi-graph-up-arrow fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold">Gap Analysis Engine</h5>
+          <p class="text-muted">Automatically calculate exact skill score, gap percentage, priority ratings (Critical, Medium, Low) and department gap heatmaps.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="bi bi-lightbulb fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold">AI Learning Recommendations</h5>
+          <p class="text-muted">Recommend courses, certifications, workshops, and books tailored to bridge identified competency gaps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4 bg-dark text-white text-center">
+    <div class="container">
+      <small>© 2026 Skill_Map Platform. Built with Node.js, Express, MySQL & Bootstrap 5.</small>
+    </div>
+  </footer>
+
+</body>
+</html>

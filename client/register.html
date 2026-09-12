@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Skill_Map Enterprise Platform</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .register-card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-card p-4 p-sm-5 my-4">
+    <div class="text-center mb-4">
+      <a href="/index.html" class="text-decoration-none">
+        <h2 class="fw-extrabold text-primary d-flex align-items-center justify-content-center mb-1">
+          <i class="bi bi-diagram-3-fill me-2"></i>Skill_Map
+        </h2>
+      </a>
+      <p class="text-muted small">Create New Enterprise Account</p>
+    </div>
+
+    <form id="registerForm">
+      <div class="mb-3">
+        <label for="name" class="form-label fw-semibold">Full Name</label>
+        <input type="text" class="form-control" id="name" required placeholder="Rahul Sharma">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Work / Student Email</label>
+        <input type="email" class="form-control" id="email" required placeholder="rahul@student.skillmap.org">
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="role" class="form-label fw-semibold">Role</label>
+          <select class="form-select" id="role">
+            <option value="Student" selected>Student</option>
+            <option value="Faculty">Faculty</option>
+            <option value="HR Manager">HR Manager</option>
+            <option value="Training Manager">Training Manager</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="department" class="form-label fw-semibold">Department</label>
+          <select class="form-select" id="department">
+            <option value="1" selected>Computer Science</option>
+            <option value="2">Information Tech</option>
+            <option value="3">Mechanical Eng.</option>
+            <option value="5">Business Admin</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" class="form-control" id="password" required minlength="6" placeholder="At least 6 characters">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-lg" id="regBtn">
+        Create Account <i class="bi bi-check-circle ms-2"></i>
+      </button>
+    </form>
+
+    <div class="text-center mt-4">
+      <small class="text-muted">Already registered? <a href="/login.html" class="text-primary fw-bold text-decoration-none">Log in here</a></small>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        role: document.getElementById('role').value,
+        department_id: document.getElementById('department').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const res = await APIClient.post('/auth/register', body);
+        if (res.success) {
+          localStorage.setItem('skill_map_token', res.token);
+          localStorage.setItem('skill_map_user', JSON.stringify(res.user));
+          Swal.fire({ icon: 'success', title: 'Account Created', text: 'Welcome to Skill_Map!' }).then(() => {
+            window.location.href = '/dashboard.html';
+          });
+        }
+      } catch (err) {
+        Swal.fire('Registration Error', err.message || 'Failed to register', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management - Skill_Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <aside class="sidebar-wrapper">
+      <a href="/dashboard.html" class="sidebar-brand"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Skill_Map</a>
+      <div class="sidebar-nav">
+        <div class="nav-category">Main Console</div>
+        <a href="/dashboard.html" class="nav-link-custom"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <div class="nav-category">Intelligence Engines</div>
+        <a href="/pages/skill-mapping.html" class="nav-link-custom"><i class="bi bi-cpu"></i> Skill Mapping</a>
+        <a href="/pages/gap-analysis.html" class="nav-link-custom"><i class="bi bi-graph-up-arrow"></i> Gap Analysis Engine</a>
+        <a href="/pages/recommendations.html" class="nav-link-custom"><i class="bi bi-lightbulb"></i> Learning Paths</a>
+        <a href="/pages/leaderboard.html" class="nav-link-custom"><i class="bi bi-trophy"></i> Leaderboard</a>
+        <div class="nav-category">Administration</div>
+        <a href="/pages/users.html" class="nav-link-custom active"><i class="bi bi-people"></i> User Management</a>
+        <a href="/pages/departments.html" class="nav-link-custom"><i class="bi bi-building"></i> Departments</a>
+        <a href="/pages/courses.html" class="nav-link-custom"><i class="bi bi-journal-code"></i> Course Catalog</a>
+        <a href="/pages/skills.html" class="nav-link-custom"><i class="bi bi-award"></i> Skills Taxonomy</a>
+        <a href="/pages/assessments.html" class="nav-link-custom"><i class="bi bi-clipboard-check"></i> Assessments</a>
+        <div class="nav-category">Outputs & Audit</div>
+        <a href="/pages/certificates.html" class="nav-link-custom"><i class="bi bi-patch-check"></i> Certificates</a>
+        <a href="/pages/reports.html" class="nav-link-custom"><i class="bi bi-file-earmark-bar-graph"></i> Executive Reports</a>
+        <a href="/pages/settings.html" class="nav-link-custom"><i class="bi bi-gear"></i> Settings</a>
+      </div>
+      <div class="p-3 border-top"><button class="btn btn-outline-danger w-100" onclick="AuthManager.logout()">Sign Out</button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light me-3" id="sidebarToggleBtn"><i class="bi bi-list fs-5"></i></button>
+          <h5 class="fw-bold mb-0">User Directory Management</h5>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-outline-primary btn-sm rounded-pill" onclick="exportUsersCSV()"><i class="bi bi-download me-1"></i> Export CSV</button>
+          <button class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="bi bi-plus-lg me-1"></i> Add New User</button>
+        </div>
+      </header>
+
+      <div class="p-4">
+        <div class="card card-custom p-4">
+          <div class="table-responsive">
+            <table class="table table-custom" id="usersTable">
+              <thead>
+                <tr>
+                  <th>User Code</th>
+                  <th>User Profile</th>
+                  <th>Role</th>
+                  <th>Department</th>
+                  <th>Designation</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated dynamically by users.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content card-custom">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Add New User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="userForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="userName" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="userEmail" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Role</label>
+                <select class="form-select" id="userRole">
+                  <option value="Student">Student</option>
+                  <option value="Faculty">Faculty</option>
+                  <option value="HR Manager">HR Manager</option>
+                  <option value="Training Manager">Training Manager</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Department</label>
+                <select class="form-select" id="userDepartment">
+                  <option value="1">Computer Science</option>
+                  <option value="2">Information Tech</option>
+                  <option value="3">Mechanical Eng.</option>
+                  <option value="5">Business Admin</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Designation</label>
+              <input type="text" class="form-control" id="userDesignation" placeholder="e.g., Software Scholar">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/users.js"></script>
+</body>
+</html>

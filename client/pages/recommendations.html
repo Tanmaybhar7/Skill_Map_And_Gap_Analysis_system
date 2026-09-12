@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recommendations - Skill_Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <aside class="sidebar-wrapper">
+      <a href="/dashboard.html" class="sidebar-brand"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Skill_Map</a>
+      <div class="sidebar-nav">
+        <div class="nav-category">Main Console</div>
+        <a href="/dashboard.html" class="nav-link-custom"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <div class="nav-category">Intelligence Engines</div>
+        <a href="/pages/gap-analysis.html" class="nav-link-custom"><i class="bi bi-graph-up-arrow"></i> Gap Analysis Engine</a>
+        <a href="/pages/recommendations.html" class="nav-link-custom active"><i class="bi bi-lightbulb"></i> Learning Paths</a>
+      </div>
+      <div class="p-3 border-top"><button class="btn btn-outline-danger w-100" onclick="AuthManager.logout()">Sign Out</button></div>
+    </aside>
+
+    <main class="main-content" id="recommendationsView">
+      <header class="topbar">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light me-3" id="sidebarToggleBtn"><i class="bi bi-list fs-5"></i></button>
+          <h5 class="fw-bold mb-0">AI Learning Recommendations & Paths</h5>
+        </div>
+      </header>
+
+      <div class="p-4">
+        <div class="card card-custom p-4 mb-4 card-gradient-primary">
+          <h4 class="fw-bold mb-1">Automated AI Course & Certification Matching</h4>
+          <p class="mb-0 text-white-50">Based on your identified skill gaps, our recommendation algorithm has mapped the following priority learning resources:</p>
+        </div>
+
+        <div class="row g-4" id="recommendationsList">
+          <!-- Populated dynamically by recommendations.js -->
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/recommendations.js"></script>
+</body>
+</html>

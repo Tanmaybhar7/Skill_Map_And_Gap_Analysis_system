@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Skill_Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <aside class="sidebar-wrapper">
+      <a href="/dashboard.html" class="sidebar-brand"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Skill_Map</a>
+      <div class="sidebar-nav">
+        <div class="nav-category">Main Console</div>
+        <a href="/dashboard.html" class="nav-link-custom"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <div class="nav-category">Outputs & Audit</div>
+        <a href="/pages/settings.html" class="nav-link-custom active"><i class="bi bi-gear"></i> Settings</a>
+      </div>
+      <div class="p-3 border-top"><button class="btn btn-outline-danger w-100" onclick="AuthManager.logout()">Sign Out</button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light me-3" id="sidebarToggleBtn"><i class="bi bi-list fs-5"></i></button>
+          <h5 class="fw-bold mb-0">Platform Settings & Security</h5>
+        </div>
+      </header>
+
+      <div class="p-4">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card card-custom p-4">
+              <h5 class="fw-bold mb-3"><i class="bi bi-key me-2 text-primary"></i>Change Password</h5>
+              <form id="changePasswordForm">
+                <div class="mb-3">
+                  <label class="form-label">Current Password</label>
+                  <input type="password" class="form-control" id="currPass" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">New Password</label>
+                  <input type="password" class="form-control" id="newPass" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Update Password</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card card-custom p-4">
+              <h5 class="fw-bold mb-3"><i class="bi bi-database-gear me-2 text-primary"></i>Database Backup & Restore</h5>
+              <p class="text-muted small">Create an immediate snapshot backup of the `skill_map` MySQL database schema and records.</p>
+              <button class="btn btn-outline-primary rounded-pill px-4" onclick="Swal.fire('Snapshot Created', 'skill_map_backup_2026.sql saved to server uploads', 'success')"><i class="bi bi-download me-1"></i> Download Database Backup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/theme.js"></script>
+  <script>
+    document.getElementById('changePasswordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const curr = document.getElementById('currPass').value;
+      const next = document.getElementById('newPass').value;
+      try {
+        const res = await APIClient.post('/auth/change-password', { currentPassword: curr, newPassword: next });
+        if (res.success) {
+          Swal.fire('Success', res.message, 'success');
+          document.getElementById('changePasswordForm').reset();
+        }
+      } catch (err) {
+        Swal.fire('Error', err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

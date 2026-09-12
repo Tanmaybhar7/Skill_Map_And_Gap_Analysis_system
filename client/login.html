@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Skill_Map Enterprise Platform</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card p-4 p-sm-5 my-4">
+    <div class="text-center mb-4">
+      <a href="/index.html" class="text-decoration-none">
+        <h2 class="fw-extrabold text-primary d-flex align-items-center justify-content-center mb-1">
+          <i class="bi bi-diagram-3-fill me-2"></i>Skill_Map
+        </h2>
+      </a>
+      <p class="text-muted small">Skill Mapping & Gap Analysis Intelligence Platform</p>
+    </div>
+
+    <!-- Quick Role Fill Tabs -->
+    <div class="mb-4">
+      <label class="form-label small fw-bold text-uppercase text-muted">Quick Demo Login Selector:</label>
+      <div class="btn-group w-100 flex-wrap" role="group">
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="fillCredentials('admin')">Admin</button>
+        <button type="button" class="btn btn-outline-info btn-sm" onclick="fillCredentials('faculty')">Faculty</button>
+        <button type="button" class="btn btn-outline-success btn-sm" onclick="fillCredentials('student')">Student</button>
+        <button type="button" class="btn btn-outline-warning btn-sm" onclick="fillCredentials('hr')">HR</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="fillCredentials('training')">Training</button>
+      </div>
+    </div>
+
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+          <input type="email" class="form-control" id="email" required placeholder="admin@skillmap.com">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+          <input type="password" class="form-control" id="password" required placeholder="••••••••">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+          <label class="form-check-label small" for="rememberMe">Remember Me</label>
+        </div>
+        <a href="#" class="small text-primary text-decoration-none" onclick="forgotPasswordDemo()">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-lg" id="loginBtn">
+        Sign In to Portal <i class="bi bi-arrow-right ms-2"></i>
+      </button>
+    </form>
+
+    <div class="text-center mt-4">
+      <small class="text-muted">Don't have an account? <a href="/register.html" class="text-primary fw-bold text-decoration-none">Register here</a></small>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script>
+    const credentials = {
+      admin: { email: 'admin@skillmap.com', pass: 'admin123' },
+      faculty: { email: 'faculty@skillmap.com', pass: 'faculty123' },
+      student: { email: 'student@skillmap.com', pass: 'student123' },
+      hr: { email: 'hr@skillmap.com', pass: 'hr123' },
+      training: { email: 'training@skillmap.com', pass: 'training123' }
+    };
+
+    function fillCredentials(role) {
+      if (credentials[role]) {
+        document.getElementById('email').value = credentials[role].email;
+        document.getElementById('password').value = credentials[role].pass;
+      }
+    }
+
+    // Auto-check URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const roleParam = urlParams.get('role');
+    if (roleParam && credentials[roleParam]) {
+      fillCredentials(roleParam);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Authenticating...';
+
+      try {
+        await AuthManager.login(email, password);
+        window.location.href = '/dashboard.html';
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Sign In to Portal <i class="bi bi-arrow-right ms-2"></i>';
+      }
+    });
+
+    function forgotPasswordDemo() {
+      Swal.fire({
+        title: 'Reset Password',
+        input: 'email',
+        inputPlaceholder: 'Enter your registered email',
+        showCancelButton: true,
+        confirmButtonText: 'Send Reset Link'
+      }).then((result) => {
+        if (result.isConfirmed && result.value) {
+          Swal.fire('Sent!', `Password reset link sent to ${result.value}`, 'success');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
